@@ -58,7 +58,13 @@ class TestSongModel(TestCase):
             name='Kaleo'
         )
     
-        self.album = Album.objects.create(
+        self.album1 = Album.objects.create(
+            name='A/B',
+            year_of_issue=2016,
+            musician_performer = self.mp
+        )
+            
+        self.album2 = Album.objects.create(
             name='A/B',
             year_of_issue=2016,
             musician_performer = self.mp
