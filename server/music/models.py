@@ -33,10 +33,11 @@ class Position(UUIDModel, TimeStampModel, SoftDeletionModel):
     position = models.PositiveIntegerField()
 
     def __str__(self) -> str:
-        return f'{self.song} - {self.album} - {self.position}'
+        return f'{self.song} - {self.album.name}'
 
     @classmethod
     def check_uniqueness(cls, album, song) -> bool:
+        """Checking a record for uniqueness"""
         all_positions = Position.active_objects.all()
         if all_positions.filter(album=album, song=song).exists():
             return False
