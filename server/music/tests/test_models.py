@@ -2,7 +2,7 @@ from uuid import UUID
 from datetime import datetime
 from django.test import TestCase
 from music.models import\
-    MusicianPerformer, Album, Song, Position
+    MusicianPerformer, Album, Song, AlbumSong
 
 
 class TestMusicianPerformerModel(TestCase):
@@ -79,7 +79,7 @@ class TestPositionModel(TestCase):
         self.song = Song.objects.create(
             name='R U mine?',
         )
-        self.position1 = Position.objects.create(
+        self.position1 = AlbumSong.objects.create(
             song=self.song,
             album=self.album,
             position=20

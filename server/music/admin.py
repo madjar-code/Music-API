@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import\
-    MusicianPerformer, Album, Song, Position
+    MusicianPerformer, Album, Song, AlbumSong
 
 
 @admin.register(MusicianPerformer)
@@ -41,8 +41,8 @@ class AlbumAdmin(admin.ModelAdmin):
     )
 
 
-@admin.register(Position)
-class Position(admin.ModelAdmin):
+@admin.register(AlbumSong)
+class AlbumSong(admin.ModelAdmin):
     search_fields = ('song',)
     list_filter = ('is_active',)
     ordering = ('-created_at',)

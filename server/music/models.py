@@ -19,12 +19,16 @@ class Album(UUIDModel, TimeStampModel, SoftDeletionModel):
         related_name='albums',
         on_delete=models.CASCADE,
     )
+    songs = models.ManyToManyField(
+        to='Song',
+        through='AlbumSong'
+    )
 
     def __str__(self) -> str:
         return f'{self.name} - {self.year_of_issue} - {self.musician_performer}'
 
 
-class Position(UUIDModel, TimeStampModel, SoftDeletionModel):
+class AlbumSong(UUIDModel, TimeStampModel, SoftDeletionModel):
     """
     Model describing the position of some song in some album
     """
@@ -38,13 +42,13 @@ class Position(UUIDModel, TimeStampModel, SoftDeletionModel):
     @classmethod
     def check_uniqueness(cls, album, song) -> bool:
         """Checking a record for uniqueness"""
-        all_positions = Position.active_objects.all()
+        all_positions = AlbumSong.active_objects.all()
         if all_positions.filter(album=album, song=song).exists():
             return False
         return True
 
     def clean(self) -> None:
-        if not Position.check_uniqueness(self.album, self.song):
+        if not AlbumSong.check_uniqueness(self.album, self.song):
             raise ValidationError('This song is already in this album')
 
 
